@@ -1,0 +1,9 @@
+kind: pod
+apiVersion: v1
+metadata:
+  name: debug
+  namespace: expense
+  spec:
+    name: debug
+    image: joindevops/debug:v1.0
+    
