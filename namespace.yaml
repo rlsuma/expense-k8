@@ -1,9 +1,7 @@
-kind: pod
+kind: Namespace
 apiVersion: v1
 metadata:
-  name: debug
-  namespace: expense
-  spec:
-    name: debug
-    image: joindevops/debug:v1.0
-    
+  name: expense
+  labels:
+    name: expense
+    environment: dev
