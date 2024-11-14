@@ -5,7 +5,7 @@ metadata:
   namespace: expense
 data:
   #DB_HOST: mysql # mysql component service name
-  DB_HOST: mysql
+  DB_HOST: db-dev.daws78s.online
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -40,12 +40,26 @@ spec:
       - name: backend
         image: joindevops/backend:v1.0
         resources:
-        requests:
-          cpu: "100m"
-          memory: "128Mi"
-        limits:
-          cpu: "150m"
-          memory: "256Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "150m"
+            memory: "256Mi"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          failureThreshold: 2
+          periodSeconds: 5
+          initialDelaySeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          failureThreshold: 2
+          periodSeconds: 5
+          initialDelaySeconds: 30
         envFrom:
         - configMapRef:
             name: backend
